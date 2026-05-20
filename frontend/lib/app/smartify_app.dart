@@ -29,9 +29,6 @@ class _SmartifyAppState extends ConsumerState<SmartifyApp>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      unawaited(
-        ref.read(connectionSettingsControllerProvider.notifier).autoDiscover(),
-      );
       unawaited(_restoreLostQrSelection());
     });
   }
@@ -44,13 +41,6 @@ class _SmartifyAppState extends ConsumerState<SmartifyApp>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      unawaited(
-        ref.read(connectionSettingsControllerProvider.notifier).autoDiscover(
-          force: true,
-        ),
-      );
-    }
   }
 
   @override

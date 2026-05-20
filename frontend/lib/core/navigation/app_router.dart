@@ -26,18 +26,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final goingToSplash = state.matchedLocation == '/splash';
       final goingToLogin = state.matchedLocation == '/login';
       final goingToRegister = state.matchedLocation == '/register';
-      final goingToConnection = state.matchedLocation == '/connection';
-
-      if (connectionState.requiresSetup) {
-        return goingToConnection ? null : '/connection';
-      }
 
       if (authState.status == AuthStatus.unknown) {
-        return goingToSplash || goingToConnection ? null : '/splash';
+        return goingToSplash ? null : '/splash';
       }
 
       if (!authState.isAuthenticated) {
-        return goingToLogin || goingToRegister || goingToConnection
+        return goingToLogin || goingToRegister
             ? null
             : '/login';
       }
@@ -52,10 +47,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/splash',
         builder: (context, state) => const SplashScreen(),
-      ),
-      GoRoute(
-        path: '/connection',
-        builder: (context, state) => const ConnectionSetupScreen(),
       ),
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(

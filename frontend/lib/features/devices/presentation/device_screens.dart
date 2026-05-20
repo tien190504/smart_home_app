@@ -801,18 +801,6 @@ class AccountTab extends ConsumerWidget {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton.icon(
-              onPressed: () => context.push('/connection'),
-              icon: const Icon(Icons.settings_ethernet_rounded),
-              label: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text('Edit connection settings'),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton.icon(
               onPressed: () async {
                 await ref.read(authControllerProvider.notifier).logout();
               },

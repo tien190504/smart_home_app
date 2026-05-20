@@ -160,8 +160,7 @@ class ConnectionSettingsController
       baseConfig: baseConfig,
       effectiveConfig: effectiveConfig,
       runtimeSettings: normalizedSettings,
-      requiresSetup:
-          normalizedSettings == null || !normalizedSettings.isComplete,
+      requiresSetup: false,
     );
   }
 }

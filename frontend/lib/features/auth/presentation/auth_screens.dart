@@ -137,14 +137,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton.icon(
-                    onPressed: () => context.go('/connection'),
-                    icon: const Icon(Icons.settings_ethernet_rounded),
-                    label: const Text('Server settings'),
-                  ),
-                ),
                 const SizedBox(height: 34),
                 Text('Email', style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(height: 12),
@@ -369,14 +361,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: AppColors.textSecondary,
                     fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton.icon(
-                    onPressed: () => context.go('/connection'),
-                    icon: const Icon(Icons.settings_ethernet_rounded),
-                    label: const Text('Server settings'),
                   ),
                 ),
                 const SizedBox(height: 34),
