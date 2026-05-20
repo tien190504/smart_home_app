@@ -41,19 +41,6 @@ services:
     environment:
       SERVER_PORT: 8080
 
-  frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    depends_on:
-      backend:
-        condition: service_started
-      mosquitto:
-        condition: service_started
-    ports:
-      - "3000:80"
-
 volumes:
   postgres_data:
   mosquitto_data:
