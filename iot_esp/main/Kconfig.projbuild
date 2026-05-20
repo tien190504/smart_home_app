@@ -1,0 +1,118 @@
+menu "IOT ESP Power Node Configuration"
+
+    config BROKER_URL
+        string "Broker URL"
+        default "mqtt://broker.emqx.io"
+        help
+            Legacy MQTT broker URL kept for development builds.
+            In the normal mobile-app flow, BLE provisioning must send the
+            broker URL at runtime and the latest value is stored in NVS
+            for later boots.
+
+    config APP_DEVICE_CODE
+        string "Device code prefix"
+        default "iot-esp-power-node"
+        help
+            Prefix used to derive the final unique deviceCode from the ESP32-C3 MAC.
+            Example final deviceCode: IOTESP-93CDE3
+
+    config APP_MQTT_TOPIC_ROOT
+        string "MQTT topic root"
+        default "iot/devices"
+        help
+            Final topics:
+            <root>/<deviceCode>/commands
+            <root>/<deviceCode>/status
+            <root>/<deviceCode>/telemetry
+
+    config APP_STATUS_PUBLISH_PERIOD_MS
+        int "Status heartbeat period (ms)"
+        range 1000 60000
+        default 15000
+        help
+            Periodic status publish interval.
+
+    config APP_RELAY_GPIO
+        int "Relay GPIO"
+        range 0 21
+        default 2
+        help
+            GPIO connected to relay IN.
+
+    config APP_RELAY_ACTIVE_LOW
+        bool "Relay input is active-low"
+        default y
+        help
+            Enable for common 5V relay boards that turn on when IN is pulled LOW.
+
+    config APP_LOAD_ACTIVE_WHEN_RELAY_OFF
+        bool "Load is ON when relay output is OFF (NC contact)"
+        default n
+        help
+            Enable this when the lamp/load is wired through the relay's NC contact.
+            In that case the app's Power state should follow the actual load state,
+            which is the inverse of the relay coil state.
+
+    config APP_SWITCH_GPIO
+        int "Switch GPIO"
+        range 0 21
+        default 3
+        help
+            GPIO connected to the local button/switch.
+
+    config APP_SWITCH_ACTIVE_LOW
+        bool "Switch input is active-low"
+        default y
+        help
+            Enable when the switch shorts GPIO to GND when pressed/closed.
+
+    choice APP_SWITCH_BEHAVIOR
+        prompt "Local switch behavior"
+        default APP_SWITCH_MODE_TOGGLE
+        help
+            Choose whether the local switch toggles the relay on every press
+            or the relay simply follows the switch level.
+
+        config APP_SWITCH_MODE_TOGGLE
+            bool "Toggle relay on each press"
+
+        config APP_SWITCH_MODE_FOLLOW_LEVEL
+            bool "Relay follows switch level"
+    endchoice
+
+    config APP_PZEM_TX_GPIO
+        int "PZEM UART TX GPIO"
+        range 0 21
+        default 4
+        help
+            ESP32-C3 TX pin wired to PZEM RX.
+
+    config APP_PZEM_RX_GPIO
+        int "PZEM UART RX GPIO"
+        range 0 21
+        default 6
+        help
+            ESP32-C3 RX pin wired to PZEM TX.
+
+    config APP_PZEM_BAUD_RATE
+        int "PZEM UART baud rate"
+        range 1200 115200
+        default 9600
+        help
+            UART baud rate for PZEM-004T.
+
+    config APP_PZEM_SLAVE_ADDR
+        int "PZEM slave address"
+        range 1 248
+        default 248
+        help
+            Default PZEM-004T v3 address is 0xF8 (248).
+
+    config APP_PZEM_POLL_PERIOD_MS
+        int "PZEM poll period (ms)"
+        range 500 60000
+        default 5000
+        help
+            Interval for reading voltage/current/power/energy/frequency/PF.
+
+endmenu

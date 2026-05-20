@@ -1,0 +1,10 @@
+target/
+.git/
+.idea/
+.vscode/
+*.log
+*.env
+.env.aws
+key/
+key/iot-server-key.pem
+docker-compose.override.yml

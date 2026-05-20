@@ -1,0 +1,8 @@
+.dart_tool
+.idea
+build
+ios
+android/.gradle
+android/app/build
+test
+README.md
